@@ -18,6 +18,10 @@ public class PlayerLoginArea : MonoBehaviour {
   {
     _color = null;
     ChosenColor.SetActive(_color.HasValue);
+
+
+    Transform t= transform.Find("colorButtons");
+
     int i = 0;
     foreach (Image colorImg in transform.Find("colorButtons").GetComponentsInChildren<Image>())
     {
