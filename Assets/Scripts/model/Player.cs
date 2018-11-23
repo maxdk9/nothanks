@@ -23,9 +23,19 @@ public class Player {
 
   public int Position;
   public int Place;
-  public PlayerColors Color { get; set; }
+
+ public int NumChips = -1;
+    public List<int> AcceptedGifts = null;
+
+    public PlayerColors Color { get; set; }
+
+    
+
 
   public Player() {
+
+        AcceptedGifts = new List<int>();
+        NumChips = 0;
     for (int i = 0; i < (int)Statistic.NUM_TYPES; ++i)
       Statistics[(Statistic)i] = 0;
   }
@@ -45,7 +55,20 @@ public class Player {
 
   public int totalScore()
   {
-    return 0;
+        int giftTotal = 0;
+        int priorGift = -1;
+        foreach( int card in this.AcceptedGifts){
+
+            if (card != priorGift + 1)
+            {
+                giftTotal += card;
+            }
+            priorGift = card;
+
+            
+        }
+        int res = NumChips - giftTotal;
+    return res;
   }
   public float totalScoreWithTieBreakers()
   {
