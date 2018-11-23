@@ -41,11 +41,18 @@ public class Game : MonoBehaviour
         // Reset any state here. When we undo, all the events are re-executed and the first event will
         // call this function to cleanup the old game state.
 
-
         GiftDeck = new List<int>();
         NumCenterChips = 0;
 
     }
+
+
+    public void AddGift(int gift)
+    {
+        GiftDeck.Add(gift);
+        GiftDeck.Sort();
+    }
+
     public void OnEnable()
     {
         theGame = this;

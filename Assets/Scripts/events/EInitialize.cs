@@ -36,6 +36,12 @@ public class EInitialize : EngineEvent
   {
     Player startPlayer = PlayerList.Players.GetRandom();
     PlayerList.setOrderToClockwiseWithStartAt(startPlayer);
+        Game.theGame.CurrentGameState=Game.GameState.PLAY;
+        Game.theGame.CurrentPlayer = startPlayer;
+        List<int> allCards = Enumerable.Range(3, 33).ToList();
+
+
+        allCards.Shuffle();
   }
 
   public void initializeGUI()

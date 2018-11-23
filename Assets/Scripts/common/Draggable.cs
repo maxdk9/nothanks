@@ -25,7 +25,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
 
   public void OnBeginDrag( PointerEventData data )
   {
-
+      
   }
 
   public void OnDrag( PointerEventData data )
