@@ -13,6 +13,12 @@ public class GameGUI : MonoBehaviour {
 
   //public ScoreboardGUI Scoreboard;
 
+
+  public TMPro.TextMeshProUGUI DeckSizeText;
+  public GameObject OfferedChips;
+  public CardGUI OfferedGift;
+  
+  
   public GameObject LoadOverlay;
   public GameObject GameCanvas;
   public GameObject AnimationCanvas;
@@ -58,7 +64,7 @@ public class GameGUI : MonoBehaviour {
     // the GameCanvas is hidden and the MainMenu is active.
     if (GameCanvas.activeSelf)
     {
-      GetComponent<MainMenu>().loadGame(PlayerPrefs.GetString(Game.PlayerPrefSettings.LAST_FILE_LOADED.ToString()));
+      //GetComponent<MainMenu>().loadGame(PlayerPrefs.GetString(Game.PlayerPrefSettings.LAST_FILE_LOADED.ToString()));
     }
     GameCanvas.SetActive(false);
     LoadOverlay.SetActive(false);
@@ -118,10 +124,16 @@ public class GameGUI : MonoBehaviour {
     GameCanvas.SetActive(Game.theGame.CurrentGameState != Game.GameState.LOGIN);
     // Scoreboard.draw()
 
+
+    drawCenter();
+    
+    
     foreach (PlayerGUI pad in theGameGUI.PlayerPads)
     {
       pad.draw();
     }
+    
+    
   }
   public void saveAndExit()
   {
@@ -160,4 +172,19 @@ public class GameGUI : MonoBehaviour {
     */
   }
 
+  public void drawCenter()
+  {
+    OfferedChips.GetComponentOnChild<TMPro.TextMeshProUGUI>("count").text = Game.theGame.NumCenterChips.ToString();
+    OfferedChips.SetActive(Game.theGame.NumCenterChips>0);
+    DeckSizeText.text = "(" +( Game.theGame.GiftDeck.Count - 1) + ")";
+    if (Game.theGame.GiftDeck.Count > 0)
+    {
+      OfferedGift.gameObject.SetActive(true);
+      OfferedGift.draw(Game.theGame.GiftDeck[0],false);
+    }
+    else
+    {
+      OfferedGift.gameObject.SetActive(false);
+    }
+  }
 }

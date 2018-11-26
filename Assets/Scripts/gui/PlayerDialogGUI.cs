@@ -13,6 +13,7 @@ public class PlayerDialogGUI : MonoBehaviour {
 
   public Image Ribbon;
   public GameObject HelpDialog;
+  public GameObject GiftIcon;
 
   void Awake()
   {
@@ -28,5 +29,16 @@ public class PlayerDialogGUI : MonoBehaviour {
     gameObject.SetActive(true);
     Ribbon.gameObject.SetActive(Game.theGame.CurrentGameState == Game.GameState.GAME_OVER);
     Ribbon.sprite = GameGUI.ribbonSprite(ParentGUI.Player.Place);
+    
+    GiftIcon.SetActive(Game.theGame.CurrentGameState == Game.GameState.PLAY &&
+                       ParentGUI.Player == Game.theGame.CurrentPlayer);
+  
   }
+
+  public void OnAcceptedGiftClick()
+  {
+    Timeline.theTimeline.addEvent(new PTakeCard());
+  }
+  
+  
 }

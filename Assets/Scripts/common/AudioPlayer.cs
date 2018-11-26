@@ -6,7 +6,7 @@ public class AudioPlayer : MonoBehaviour
 {
   public enum AudioClipEnum
   {
-    INVALID = -1, INTRO, CLICK
+    INVALID = -1, INTRO, CLICK,CARD_CLIP,CHIP,SHUFFLE
   }
   static AudioPlayer thePlayer = null;
 

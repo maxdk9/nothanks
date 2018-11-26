@@ -11,8 +11,8 @@ public class PlayerList : MonoBehaviour {
 
   List<Player> _players = new List<Player>();
 
-  public const int MIN_PLAYERS = 0;
-  public const int MAX_PLAYERS = 0;
+  public const int MIN_PLAYERS = 3;
+  public const int MAX_PLAYERS = 7;
   
   void OnEnable()
   {

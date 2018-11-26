@@ -8,7 +8,17 @@ using System;
 
 public class PlayerGUI : MonoBehaviour {
 
+  
+  
   Player _player = null;
+  public TMPro.TextMeshProUGUI TotalScore;
+  public GameObject Chips;
+  public GameObject CardPrefab;
+  public GameObject SpacePrefab;
+  public Transform CardContainer;
+  
+  
+  
   public Player Player
   {
     get { if (_player == null) _player = PlayerList.playerAtPosition(Position); return _player; }
@@ -52,13 +62,53 @@ public class PlayerGUI : MonoBehaviour {
   }
 
   bool _isAnimating = false;
+  List<int> drawnCards=new List<int>();
+  
   public void draw()
   {
     if (_isAnimating) return;
     if (Player == null) return;
 
     //GetComponent<Image>().color = Player.veryLightColor();
+    GetComponent<Image>().color = Player.solidColor();
+    foreach (var text in Chips.GetComponentsInChildren<TMPro.TextMeshProUGUI>())
+    {
+      text.text = Player.NumChips.ToString();
+    }
 
+    TotalScore.text = "=" + Player.totalScore();
+    if (Player.AcceptedGifts.Count != drawnCards.Count)
+    {
+      CardContainer.gameObject.DestroyChildrenImmediate();
+      drawnCards=new List<int>(Player.AcceptedGifts);
+
+      int priorGift = -1;
+      foreach (int gift in drawnCards)
+      {
+        if((priorGift!=-1)&&(gift>priorGift+1))
+        {
+          GameObject spacer = Instantiate(this.SpacePrefab);
+          spacer.transform.SetParent(CardContainer,false);
+          
+        }
+        
+        GameObject card = Instantiate(CardPrefab);
+        card.GetComponent<CardGUI>().draw(gift, gift > priorGift + 1);
+        card.transform.SetParent(CardContainer, false);
+ 
+        priorGift = gift;
+      }
+      DialogGUI.draw();
+      
+      
+      
+      
+      
+      
+      
+    }
+    
+    
 
     DialogGUI.draw();
   }
@@ -76,4 +126,20 @@ public class PlayerGUI : MonoBehaviour {
   {
     DialogGUI.showHelp();
   }
+
+  public void OnPayChipClick()
+  {
+    if (Player == Game.theGame.CurrentPlayer)
+    {
+      if (Player.NumChips > 0)
+      {
+        Timeline.theTimeline.addEvent(new PPayChip());
+      }
+      else
+      {
+        WindowsVoice.speak("Out of chips");
+      }
+    }
+  }
+  
 }

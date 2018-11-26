@@ -116,6 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ribbon: {fileID: 114936126360693082}
   HelpDialog: {fileID: 1807163092341526}
+  GiftIcon: {fileID: 1713306727648310}
 --- !u!114 &114936126360693082
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -74,4 +74,13 @@ public class Player {
   {
     return totalScore() + 0;
   }
+
+
+  public void TakeGift(int gift)
+  {
+    
+    AcceptedGifts.Add(gift);
+    AcceptedGifts.Sort();
+  }
+  
 }
