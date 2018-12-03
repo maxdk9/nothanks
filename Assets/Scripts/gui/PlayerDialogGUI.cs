@@ -37,6 +37,8 @@ public class PlayerDialogGUI : MonoBehaviour {
 
   public void OnAcceptedGiftClick()
   {
+    
+    Debug.Log("OnAcceptedGiftClick");
     Timeline.theTimeline.addEvent(new PTakeCard());
   }
   
